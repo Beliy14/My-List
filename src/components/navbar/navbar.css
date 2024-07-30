@@ -1,0 +1,49 @@
+.header {
+    padding: 20px 200px;
+    background-color: #F55;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    .logo {
+        font-weight: bold;
+        font-size: 30px;
+        color: #e7c8c8;
+        text-decoration: none;
+        cursor: default;
+    }
+
+    .nav-btn {
+        text-decoration: none; 
+        color: inherit; 
+        position: relative; 
+        padding: 10px 15px; 
+        display: inline-block; 
+        color: #e6e6e6;
+        font-size: 24px;
+        margin: 0 20px;
+        transition: 0.1s linear; 
+      }
+      
+      .nav-btn:hover {
+        color: #dbd2d2;
+        scale: 1.1;
+      }
+
+      .nav-btn::after {
+        content: '';
+        position: absolute; 
+        bottom: 4px; 
+        left: 0; 
+        width: 0%; 
+        height: 2px; 
+        background-color: #dbd2d2;
+        transition: 0.2s ease; 
+      }
+      
+      .nav-btn:hover::after {
+        width: 100%; 
+
+      }
+}
+
