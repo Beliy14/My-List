@@ -1,16 +1,16 @@
 import React, { useState } from "react"
 import { useAppDispatch } from "../../hooks/hook"
-import { addNews } from "../../store/slices/newsSlice"
-import "./newsBlock.css"
+import { addNotes } from "../../store/slices/notesSlice"
+import "./notesBlock.css"
 import { API } from "../../services/service"
-import NewsItem from "./NewsItem"
-import { INews } from "../../models/INews"
+import NotesItem from "./NotesItem"
+import { INotes } from "../../models/INotes"
 
-const NewsBlock: React.FC = () => {
-  const { data: news, isLoading, error } = API.useFetchAllNewsQuery('')
-  const [createNews, {}] = API.useCreateNewsMutation()
-  const [deleteNews, {}] = API.useDeleteNewsMutation()
-  const [updateNewsas] = API.useUpdateNewsMutation()
+const NotesBlock: React.FC = () => {
+  const { data: notes, isLoading, error } = API.useFetchAllNotesQuery("")
+  const [createNotes, {}] = API.useCreateNotesMutation()
+  const [deleteNotes, {}] = API.useDeleteNotesMutation()
+  const [updateNotes] = API.useUpdateNotesMutation()
 
   const dispatch = useAppDispatch()
 
@@ -21,13 +21,13 @@ const NewsBlock: React.FC = () => {
 
   const addAction = async () => {
     if (titleValue.trim().length && contentValue.trim().length) {
-      dispatch(addNews({ title: titleValue, content: contentValue }))
-      await createNews({
+      dispatch(addNotes({ title: titleValue, content: contentValue }))
+      await createNotes({
         title: titleValue,
         content: contentValue,
         time: new Date().toLocaleString("ru-RU", { timeZone: "Europe/Moscow" }),
         id: new Date().toLocaleString(),
-      } as INews)
+      } as INotes)
       setTitleValue("")
       setContentValue("")
       setInputTitleValue("")
@@ -44,40 +44,30 @@ const NewsBlock: React.FC = () => {
     }
   }
 
-  const closeNews = (newas: INews) => {
-    deleteNews(newas)
+  const closeNotes = (note: INotes) => {
+    deleteNotes(note)
   }
 
-  const updateNews = (newas: INews) => {
-    updateNewsas(newas)
+  const updateNoteses = (note: INotes) => {
+    updateNotes(note)
   }
 
   return (
     <div className="app">
-      <h2>News Block!</h2>
+      <h2>Block Note!</h2>
 
       <div>
         <div className="inp-cont">
           <label htmlFor="title-inp">Title:</label>
-          <input
-            type="text"
-            id="title-inp"
-            value={titleValue}
-            onChange={(e) => setTitleValue(e.target.value)}
-          />
+          <input type="text" id="title-inp" value={titleValue} onChange={(e) => setTitleValue(e.target.value)} />
           <p className="inputValue">{inputTitleValue}</p>
           <br />
           <label htmlFor="content-inp">Content:</label>
-          <input
-            type="text"
-            id="content-inp"
-            value={contentValue}
-            onChange={(e) => setContentValue(e.target.value)}
-          />
+          <input type="text" id="content-inp" value={contentValue} onChange={(e) => setContentValue(e.target.value)} />
           <p className="inputValue">{inputContentValue}</p>
         </div>
         <button className="cool-button" onClick={() => addAction()}>
-          Add news
+          Add notes
         </button>
       </div>
 
@@ -89,23 +79,13 @@ const NewsBlock: React.FC = () => {
         )}
         {error && (
           <div className="container">
-            <h3 className="error-heading">
-              Error: The news data has not been uploaded.
-            </h3>
+            <h3 className="error-heading">Error: The notes data has not been uploaded.</h3>
           </div>
         )}
-        {news &&
-          news.map((news) => (
-            <NewsItem
-              key={news.id}
-              news={news}
-              close={closeNews}
-              update={updateNews}
-            />
-          ))}
-        {news && news.length === 0 && (
+        {notes && notes.map((note) => <NotesItem key={note.id} notes={note} close={closeNotes} update={updateNoteses} />)}
+        {notes && notes.length === 0 && (
           <div className="container">
-            <h2 className="">No news found 👀</h2>
+            <h2>No notes found 👀</h2>
           </div>
         )}
       </div>
@@ -113,4 +93,4 @@ const NewsBlock: React.FC = () => {
   )
 }
 
-export default NewsBlock
+export default NotesBlock

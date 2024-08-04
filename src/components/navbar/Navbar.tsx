@@ -9,9 +9,9 @@ const Navbar = () => {
 
     return (
         <div className='header'>
-            <Link to="/" className="logo">FKontakte</Link>
+            <Link to="/" className="logo">MyBlock</Link>
             <div>
-                <Link to="/news" className='nav-btn'>News</Link>
+                <Link to="/notes" className='nav-btn'>Notes</Link>
                 <Link to="/music" className='nav-btn'>Music</Link>
             </div>
         </div>
